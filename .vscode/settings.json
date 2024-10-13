@@ -1,0 +1,9 @@
+{
+"workbench.colorCustomizations": {
+"statusBar.background": "#750014",
+"titleBar.activeBackground": "#750014",
+"titleBar.inactiveBackground": "#750014",
+},
+"pieces.cloudCapabilities": "Blended",
+"pieces.telemetry": true
+}
