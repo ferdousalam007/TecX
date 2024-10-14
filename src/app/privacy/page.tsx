@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 
 const page = () => {
@@ -82,7 +83,7 @@ const page = () => {
         <h2 className="text-2xl font-semibold mb-4">7. Contact Us</h2>
         <p className="mb-4">
           If you have any questions about this Privacy Policy, please contact us
-          at{" "}
+         
           <a href="mailto:support@tecx.com" className="text-blue-500 underline">
             support@tecx.com
           </a>

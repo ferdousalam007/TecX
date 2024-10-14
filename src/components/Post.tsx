@@ -9,7 +9,7 @@ import { IoMdLock } from "react-icons/io";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Post = ({ post }: any) => {
   const { user } = useMe();
-
+console.log(post,"post");
   const isPremium = post.isPremium;
   const canAccessPremium =
     user?.isVerified || user?.role === "admin" || user?._id === post.author._id;
@@ -112,6 +112,7 @@ const Post = ({ post }: any) => {
               postDownvotes={post.downvotes}
               postId={post._id}
               totalComments={post.totalComments}
+              viewsCount={post.viewsCount}
             />
           ) : (
             <div className="pointer-events-none">
@@ -123,10 +124,35 @@ const Post = ({ post }: any) => {
                 postDownvotes={post.downvotes}
                 postId={post._id}
                 totalComments={post.totalComments}
+                viewsCount={post.viewsCount}
                 // disabled={true as boolean}
               />
             </div>
           )}
+        </div>
+        <div>
+          {/* {user ? (
+            <PostMedia
+              postUpvotes={post.upvotes}
+              postDownvotes={post.downvotes}
+              postId={post._id}
+              totalComments={post.totalComments}
+           
+            />
+          ) : (
+            <div className="pointer-events-none">
+              <p className="text-red-500">
+                only access this area register user
+              </p>
+              <PostMedia
+                postUpvotes={post.upvotes}
+                postDownvotes={post.downvotes}
+                postId={post._id}
+                totalComments={post.totalComments}
+                
+              />
+            </div>
+          )} */}
         </div>
       </div>
     </div>

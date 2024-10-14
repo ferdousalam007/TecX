@@ -121,7 +121,7 @@ const PostDetails = () => {
       {user ? (
         <div className="max-w-6xl mx-auto px-5 py-4">
           <div
-            className="bg-white rounded-lg p-6 shadow-md space-y-6"
+            className="custom-border-card rounded-lg p-6 shadow-md space-y-6"
             ref={targetRef}
           >
             {/* Post Title */}
@@ -143,7 +143,7 @@ const PostDetails = () => {
               >
                 {post?.images.map((image: string, index: number) => (
                   <SwiperSlide key={index}>
-                    <div className="bg-primary-background rounded-lg">
+                    <div className="bg-primary-background rounded-lg custom-border-card p-2">
                       <Image
                         src={image}
                         alt="Slide 1"
@@ -167,6 +167,7 @@ const PostDetails = () => {
               postDownvotes={post?.downvotes}
               postId={post?._id}
               totalComments={post?.comments?.length}
+              viewsCount={post?.viewsCount}
             />
 
             {/* Comments Section */}

@@ -1,6 +1,9 @@
 // import Image from "next/image";
 import React from "react";
-
+import teamImg1 from "../../../assets/team1.jpg";
+import teamImg2 from "../../../assets/team2.jpg";
+import teamImg3 from "../../../assets/team3.jpg";
+import Image from "next/image";
 
 const page = () => {
   return (
@@ -55,49 +58,42 @@ const page = () => {
               <h2 className="text-3xl font-semibold  mb-6">Meet the Team</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Team Member 1 */}
-                <div className="bg-white rounded-lg shadow-md p-6 text-center">
-                  {/* <Image
-                    src="https://car-rental-client-pink.vercel.app/assets/team1-BVIjt4a9.jpg"
+                <div className="custom-border-card rounded-lg shadow-md p-6 text-center">
+                  <Image
+                    src={teamImg1}
                     alt="Team member 1"
-                    className="w-24 h-24 rounded-full mx-auto mb-4"
-
-                    width={100}
-                    height={100}
-                  /> */}
-                  <h3 className="text-xl font-semibold text-gray-800">
-                    Jane Doe
-                  </h3>
-                  <p className="text-gray-600">Founder & CEO</p>
+                    className=" mx-auto mb-4"
+                    width={500}
+                    height={400}
+                  />
+                  <h3 className="text-xl font-semibold">Jane Doe</h3>
+                  <p className="">Founder & CEO</p>
                 </div>
                 {/* Team Member 2 */}
-                <div className="bg-white rounded-lg shadow-md p-6 text-center">
-                  {/* <Image
-                    src="https://car-rental-client-pink.vercel.app/assets/team1-BVIjt4a9.jpg"
+                <div className="custom-border-card rounded-lg shadow-md p-6 text-center">
+                  <Image
+                    src={teamImg3}
                     alt="Team member 1"
-                    className="w-24 h-24 rounded-full mx-auto mb-4"
-
-                    width={100}
-                    height={100}
-                  /> */}
-                  <h3 className="text-xl font-semibold text-gray-800">
-                    John Smith
-                  </h3>
-                  <p className="text-gray-600">Chief Technology Officer</p>
+                    className=" mx-auto mb-4"
+                    width={500}
+                    height={400}
+                  />
+                  <h3 className="text-xl font-semibold ">John Smith</h3>
+                  <p className="">Chief Technology Officer</p>
                 </div>
                 {/* Team Member 3 */}
-                <div className="bg-white rounded-lg shadow-md p-6 text-center">
-                  {/* <Image
-                    src="https://car-rental-client-pink.vercel.app/assets/team1-BVIjt4a9.jpg"
+                <div className="custom-border-card rounded-lg shadow-md p-6 text-center">
+                  <Image
+                    src={teamImg2}
                     alt="Team member 1"
-                    className="w-24 h-24 rounded-full mx-auto mb-4"
-
-                    width={100}
-                    height={100}
-                  /> */}
-                  <h3 className="text-xl font-semibold text-gray-800">
+                    className=" mx-auto mb-4"
+                    width={500}
+                    height={400}
+                  />
+                  <h3 className="text-xl font-semibold ">
                     Alice Johnson
                   </h3>
-                  <p className="text-gray-600">Head of Community</p>
+                  <p className="text-white">Head of Community</p>
                 </div>
               </div>
             </section>

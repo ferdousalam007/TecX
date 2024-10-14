@@ -5,6 +5,7 @@ import {
   MdThumbUp,
   MdOutlineThumbUpOffAlt,
 } from "react-icons/md";
+import { GrView } from "react-icons/gr";
 import { GoComment } from "react-icons/go";
 import { useMe } from "@/hooks/auth/useMe";
 import { useUpdatePost } from "@/hooks/posts/useUpdatePost";
@@ -20,16 +21,17 @@ const PostMedia = ({
   postDownvotes,
   postId,
   totalComments,
+  viewsCount,
 }: {
   postUpvotes: string[];
   postDownvotes: string[];
   postId: string;
   totalComments: number;
+  viewsCount?: number;
   disabled?: boolean;
 }) => {
   const { user } = useMe();
   const { updatePost } = useUpdatePost();
-
   const [upvotes, setUpvotes] = useState(postUpvotes);
   const [downvotes, setDownvotes] = useState(postDownvotes);
   const [userVote, setUserVote] = useState<"upvote" | "downvote" | null>(null);
@@ -95,7 +97,7 @@ const PostMedia = ({
             className="flex items-center"
           >
             {userVote === "upvote" ? (
-              <MdThumbUp className="text-xl text-[#7147ED]" />
+              <MdThumbUp className="text-xl text-[#B321E7]" />
             ) : (
               <MdOutlineThumbUpOffAlt className="text-xl" />
             )}
@@ -106,20 +108,24 @@ const PostMedia = ({
             className="flex items-center ml-4"
           >
             {userVote === "downvote" ? (
-              <MdThumbDownAlt className="text-xl text-[#7147ED]" />
+              <MdThumbDownAlt className="text-xl text-[#C73F36]" />
             ) : (
-              <MdThumbDownOffAlt className="text-xl" />
+              <MdThumbDownOffAlt className="text-xl " />
             )}
           </button>
-          <span>{downvotes.length}</span>
+          <span>{downvotes?.length}</span>
         </div>
       </div>
       {/* Comment section */}
       <div className="flex items-center space-x-2 bg-[#272B34] rounded-xl px-4 py-2">
         <button className="flex items-center">
-          <GoComment className="text-lg text-[#7147ED]" />
+          <GoComment className="text-lg text-[#2398A1]" />
         </button>
         <span>{totalComments}</span>
+        <button className="flex items-center">
+          <GrView className="text-lg text-[#D97A37]" />
+        </button>
+        <span>{viewsCount}</span>
       </div>
 
       <div className="flex items-center space-x-2 bg-[#272B34] rounded-xl px-4 py-2">

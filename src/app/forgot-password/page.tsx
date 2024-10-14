@@ -2,7 +2,6 @@
 
 import Button from "@/components/Button";
 import { useForgotPassword } from "@/hooks/auth/useForgotPassword";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";

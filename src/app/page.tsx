@@ -42,7 +42,7 @@ const Home = () => {
                     hasMore={hasNextPage}
                     loader={<Spinner className="my-4" />}
                   >
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 ">
                       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                       {posts?.map(
                         (post: any) =>

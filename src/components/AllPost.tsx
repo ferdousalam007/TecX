@@ -1,7 +1,7 @@
 "use client";
 
 import { usePosts } from "@/hooks/posts/usePosts";
-import PublishPost from "./PublishPost";
+// import PublishPost from "./PublishPost";
 import SearchFilter from "./SearchFilter";
 import Spinner from "./Spinner";
 import ErrorMessage from "./ErrorMessage";
@@ -17,9 +17,7 @@ const AllPost = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 ">
         {/* Main Content */}
         <div className="space-y-6 order-3 lg:order-1 lg:col-span-9 ">
-          <div className=" rounded-lg p-4 shadow-md sticky top-4 z-10 h-[80px]">
-            <PublishPost />
-          </div>
+         
           <Banner />
           <SearchFilter />
           {isLoading ? (
@@ -45,7 +43,7 @@ const AllPost = () => {
         </div>
 
         {/* Right Sidebar */}
-        <div className="space-y-6   md:sticky md:top-4 md:z-10 h-[300px] order-2 lg:order-3 lg:col-span-3">
+        <div className="space-y-6   md:sticky md:top-28 md:z-10 h-[300px] order-2 lg:order-3 lg:col-span-3">
           <Greeting />
         </div>
       </div>

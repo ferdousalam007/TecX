@@ -23,7 +23,7 @@ const SearchFilter = () => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
+    <div className="custom-border-card p-4 rounded-lg shadow-md">
       <div className="mb-4">
         <input
           type="text"

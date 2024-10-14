@@ -73,11 +73,26 @@ a:hover {
 }
 .custom-border-card {
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.5); /* Custom color */
-  backdrop-filter: blur(5px); /* Applies blur to background content */
+  border: 1px solid rgba(255, 255, 255, 0.5); 
+  backdrop-filter: blur(5px);
 }
+/* .custom-border-card {
+background: rgba( 255, 255, 255, 0.25 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 4px );
+-webkit-backdrop-filter: blur( 4px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
+} */
+.custom-border-card {
+ background: rgba( 74, 74, 74, 0.25 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 4px );
+-webkit-backdrop-filter: blur( 4px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
 
-
+}
 
 /* Generate 20 unique bubbles */
 
