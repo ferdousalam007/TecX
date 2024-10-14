@@ -11,11 +11,10 @@ const Banner = () => {
       <div className="container gap-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <h1>{posts?.length} latest posts</h1>
             <Image
               className="w-full h-[350px] object-cover"
               src={
-                posts && posts[0] && posts[0].images
+                posts && posts[0] && posts[0].images[0]
                   ? posts[0].images[0]
                   : undefined
               }

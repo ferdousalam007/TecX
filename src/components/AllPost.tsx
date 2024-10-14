@@ -2,7 +2,7 @@
 
 import { usePosts } from "@/hooks/posts/usePosts";
 // import PublishPost from "./PublishPost";
-import SearchFilter from "./SearchFilter";
+import SearchBox from "./SearchBox";
 import Spinner from "./Spinner";
 import ErrorMessage from "./ErrorMessage";
 import InfiniteScroll from "react-infinite-scroller";
@@ -17,9 +17,8 @@ const AllPost = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 ">
         {/* Main Content */}
         <div className="space-y-6 order-3 lg:order-1 lg:col-span-9 ">
-         
           <Banner />
-          <SearchFilter />
+          <SearchBox />
           {isLoading ? (
             <Spinner className="my-4" />
           ) : posts?.length === 0 ? (

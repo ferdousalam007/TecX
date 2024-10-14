@@ -1,9 +1,7 @@
 "use client";
 
 import PostTable from "@/components/PostTable";
-import SearchFilter from "@/components/SearchFilter";
-
-
+import SearchFilter from "@/components/SearchBox";
 
 const ManagePosts = () => {
   return (

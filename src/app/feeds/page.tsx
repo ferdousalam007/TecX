@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import dynamic from "next/dynamic";
 import ErrorMessage from "@/components/ErrorMessage";
 import Greeting from "@/components/Greeting";
 
 import PublishPost from "@/components/PublishPost";
-import SearchFilter from "@/components/SearchFilter";
+import SearchFilter from "@/components/SearchBox";
 import Spinner from "@/components/Spinner";
 
 // import WeatherWidget from "@/components/WeatherWidget";
@@ -17,7 +18,7 @@ const Post = dynamic(() => import("@/components/Post"), {
 
 const Feeds = () => {
   const { posts, isLoading, fetchNextPage, hasNextPage } = usePosts();
- const [isClient, setIsClient] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -44,9 +45,9 @@ const Feeds = () => {
             >
               <div className="flex flex-col gap-4">
                 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                {posts?.map((post: any) => (
-                    isClient && <Post key={post._id} post={post} />
-                ))}
+                {posts?.map(
+                  (post: any) => isClient && <Post key={post._id} post={post} />
+                )}
               </div>
             </InfiniteScroll>
           )}
