@@ -17,7 +17,7 @@ import { useUpdatePost } from "@/hooks/posts/useUpdatePost";
 import { useMe } from "@/hooks/auth/useMe";
 import Image from "next/image";
 import handleBase64Images from "@/utils/handleBase64Images";
-// import QuillResizeImage from "quill-resize-image";
+
 const formats = [
   "header",
   "bold",
@@ -31,10 +31,10 @@ const formats = [
   "link",
   "image",
 ];
+
 interface PostModalProps {
   modalIsOpen: boolean;
   setModalIsOpen: (value: boolean) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   post?: any | null;
 }
 
@@ -78,32 +78,24 @@ const PostModal: React.FC<PostModalProps> = ({
   const closeModal = () => {
     setModalIsOpen(false);
   };
- const modules = useMemo(() => {
-   if (typeof window !== "undefined") {
-     const Quill = ReactQuill as any;
-     import("quill-resize-image").then((module) => {
-       Quill.register("modules/resize", module.default);
-     });
 
-     return {
-       toolbar: [
-         [{ header: [1, 2, 3, false] }],
-         ["bold", "italic", "underline", "strike", "blockquote"],
-         [
-           { list: "ordered" },
-           { list: "bullet" },
-           { indent: "-1" },
-           { indent: "+1" },
-         ],
-         ["link", "image"],
-         ["clean"],
-       ],
-       resize: { locale: {} },
-     };
-   }
-
-   return {};
- }, []);
+  const modules = useMemo(
+    () => ({
+      toolbar: [
+        [{ header: [1, 2, 3, false] }],
+        ["bold", "italic", "underline", "strike", "blockquote"],
+        [
+          { list: "ordered" },
+          { list: "bullet" },
+          { indent: "-1" },
+          { indent: "+1" },
+        ],
+        ["link", "image"],
+        ["clean"],
+      ],
+    }),
+    []
+  );
 
   useEffect(() => {
     if (post) {
@@ -128,8 +120,7 @@ const PostModal: React.FC<PostModalProps> = ({
   }, [post, reset]);
 
   const onSubmit = async (newPost: FormData) => {
-    // eslint-disable-next-line prefer-const
-    let modifiedContent = await handleBase64Images(newPost.content);
+    const modifiedContent = await handleBase64Images(newPost.content);
 
     newPost.content = modifiedContent.replace(/"/g, "'");
     clearErrors("images");
@@ -298,38 +289,32 @@ const PostModal: React.FC<PostModalProps> = ({
                     {errors.images.message}
                   </p>
                 )}
-                <div className="mt-2 flex flex-wrap gap-3">
-                  {uploadedImages.map((url, index) => (
+              </div>
+
+              {uploadedImages.length > 0 && (
+                <div className="grid grid-cols-4 gap-4">
+                  {uploadedImages.map((image, index) => (
                     <div key={index} className="relative">
                       <Image
-                        src={url}
-                        alt={`Uploaded ${index}`}
-                        className="h-24 w-24 rounded-md object-cover"
-                        width={96}
-                        height={96}
+                        src={image}
+                        alt={`Uploaded image ${index + 1}`}
+                        width={100}
+                        height={100}
+                        className="rounded-md object-cover"
                       />
                       <button
                         type="button"
-                        className="absolute top-0 right-0 bg-primary-red text-primary-white rounded-full p-1 hover:bg-red-700"
                         onClick={() => removeImage(index)}
+                        className="absolute top-0 right-0 rounded-full bg-primary-red text-white p-1 text-xs"
                       >
-                        <RxCross2 />
+                        &times;
                       </button>
                     </div>
                   ))}
                 </div>
-              </div>
-              <div className="flex items-center space-x-2 mt-4">
-                <input
-                  type="checkbox"
-                  {...register("isPremium")}
-                  className="w-5 h-5"
-                />
-                <label className="text-sm font-medium text-primary-text">
-                  Mark as Premium
-                </label>
-              </div>
-              <div className="space-y-1 mb-5">
+              )}
+
+              <div className="space-y-1">
                 <label className="block text-sm font-medium text-primary-text">
                   Content
                 </label>
@@ -339,13 +324,11 @@ const PostModal: React.FC<PostModalProps> = ({
                   rules={{ required: "Content is required" }}
                   render={({ field }) => (
                     <ReactQuill
-                      formats={formats}
+                      value={field.value}
+                      onChange={field.onChange}
                       modules={modules}
-                      {...field}
-                      theme="snow"
-                      placeholder="Enter post content"
-                      className="rounded-lg mb-6"
-                      style={{ height: "500px" }}
+                      formats={formats}
+                      // className="bg-white"
                     />
                   )}
                 />
@@ -356,7 +339,18 @@ const PostModal: React.FC<PostModalProps> = ({
                 )}
               </div>
 
-              <div className="flex justify-center mt-6 items-end">
+              <div className="flex items-center space-x-3">
+                <label className="text-sm font-medium text-primary-text">
+                  Premium Post?
+                </label>
+                <input
+                  type="checkbox"
+                  {...register("isPremium")}
+                  className="h-5 w-5 cursor-pointer"
+                />
+              </div>
+
+              <div className="mt-5">
                 <Button
                   loading={isUpdating || isCreating || loading}
                   disabled={isUpdating || isCreating || loading}

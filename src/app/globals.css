@@ -319,5 +319,21 @@ input[type="password"] {
   background-color: #0f172a!important;
   color:#fff !important; /* Smooth transition for focus */
 }
-
-
+.ql-toolbar.ql-snow button{
+background: unset !important;
+color: #cfa8a8 !important;
+}
+.ql-snow .ql-stroke {
+    fill: none;
+    stroke: #bdb5b5 !important;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+.ql-snow .ql-fill, .ql-snow .ql-stroke.ql-fill {
+    fill: #ffefef !important; 
+}
+.ql-snow .ql-picker-label::before {
+   
+    color: #fff !important;
+}
