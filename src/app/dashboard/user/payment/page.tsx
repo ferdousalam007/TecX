@@ -18,7 +18,7 @@ const Payment = () => {
   };
   return (
     <section className="max-w-8xl  mx-auto px-5">
-      <div className=" rounded-lg shadow-md flex flex-col items-center justify-center bg-white text-primary-text py-16 px-8">
+      <div className=" rounded-lg shadow-md flex flex-col items-center justify-center custom-border-card text-primary-text py-16 px-8">
         {user?.isVerified ? (
           <FaCheckCircle className="text-8xl mb-6 text-primary-blue" />
         ) : (

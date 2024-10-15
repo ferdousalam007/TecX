@@ -97,14 +97,14 @@ export default function DashboardLayout({
       <AnimatePresence>
         {(isSidebarOpen || !isMobile) && (
           <motion.aside
-            className="absolute lg:static w-64 h-[calc(100vh-80px)] bg-primary-background shadow-lg overflow-auto rounded-lg z-50"
+            className="absolute lg:static w-64 h-[calc(100vh-80px)] mt-[110px] bg-primary-background shadow-lg overflow-auto rounded-lg z-10"
             initial="closed"
             animate="open"
             exit="closed"
             variants={sidebarVariants}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
-            <div className="p-6 h-full flex flex-col">
+            <div className="p-6 h-full flex flex-col ">
               <nav className="flex-grow">
                 <motion.ul
                   className="space-y-3"
@@ -200,7 +200,7 @@ export default function DashboardLayout({
         )}
       </AnimatePresence>
       {/* Main Content Area */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto mt-[150px]">
         <motion.div
           className="max-w-7xl mx-auto py-5 px-5"
           initial={{ opacity: 0 }}

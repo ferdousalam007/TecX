@@ -73,7 +73,7 @@ const ProfileInfo = ({ user }: { user: IFormInput }) => {
   };
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md">
+    <div className="p-6 custom-border-card rounded-lg shadow-md">
       <h2 className="text-2xl font-semibold text-secondary-text mb-6">
         Profile Information
       </h2>

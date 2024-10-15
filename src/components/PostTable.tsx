@@ -30,7 +30,7 @@ const PostTable = () => {
     fetchNextPage,
     hasNextPage,
   } = usePosts();
-  console.log(allPosts);
+ 
 
   const posts =
     user?.role === "admin"

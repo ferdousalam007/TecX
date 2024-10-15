@@ -1,9 +1,9 @@
-"use client";
+"use client"
 import Link from "next/link";
 import React from "react";
 import { FiArrowRight } from "react-icons/fi";
-
 const page = () => {
+
   return (
     <section className="max-w-8xl  mx-auto px-5">
       <div className=" rounded-lg shadow-md flex flex-col items-center justify-center bg-white text-primary-text py-16 px-8">

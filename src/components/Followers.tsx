@@ -5,7 +5,7 @@ import { FaUserEdit } from "react-icons/fa";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Followers = ({ followers }: any) => {
   return (
-    <div className="p-4 bg-white shadow-md rounded-lg">
+    <div className="p-4 custom-border-card shadow-md rounded-lg">
       <h2 className="text-xl font-semibold text-primary-text mb-3">
         Followers
       </h2>

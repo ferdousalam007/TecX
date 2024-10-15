@@ -73,7 +73,7 @@ const Navbar = () => {
                     hover:bg-[#432256] hover:text-[#fff] hover:border-[#272B34] transition ease-in-out duration-300
                    "
                   >
-                    {user?.role === "admin" ? "Dashboard" : "User Dashboard"}
+                    {user?.role === "admin" ? "Dashboard" : "Dashboard"}
                   </Link>
                   <button
                     onClick={() => logout()}
@@ -151,7 +151,7 @@ const Navbar = () => {
                    "
                     onClick={toggleMobileMenu}
                   >
-                    {user?.role === "admin" ? "Dashboard" : "User Dashboard"}
+                    {user?.role === "admin" ? "Dashboard" : "Dashboard"}
                   </Link>
                   <button
                     onClick={() => {

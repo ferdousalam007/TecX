@@ -27,11 +27,11 @@
 
 body {
   color: var(--primary-text);
-  background: var(--primary-background);
-  font-family: "Montserrat", system-ui;
+  background: var(--primary-background) !important;
+    font-family: "Assistant", serif;
 }
 h1,h1,h2,h3,h4,h5,h6 {
-  font-family: "Montserrat", system-ui;
+   font-family: "Assistant", serif;
   color: var(--primary-text);
 }
 a {

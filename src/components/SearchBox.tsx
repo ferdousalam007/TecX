@@ -18,7 +18,7 @@ const SearchBox = () => {
   const [debouncedSearch] = useDebounce(search, 500);
 
   useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString()); params
+    const params = new URLSearchParams(searchParams.toString()); 
     if (debouncedSearch) {
       params.set("search", debouncedSearch);
     } else {
@@ -33,7 +33,7 @@ const SearchBox = () => {
 
     const queryString = params.toString();
     router.push(`?${queryString}`);
-  }, [debouncedSearch, category, router, searchParams]);
+  }, [debouncedSearch, category, router, searchParams,setCategory, setSearch]);
 
   
   const handleClearSearch = () => {
