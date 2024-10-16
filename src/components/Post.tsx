@@ -38,23 +38,7 @@ console.log(post,"post");
             : `/post/${post._id}`
         }
       >
-        {/* http://localhost:3000/?category=6706c07f43085b118b44214f */}
-
-        {/* <div className="mt-4">
-          <Link
-            href={`/?category=${post?.category?._id}`}
-            scroll={false}
-            passHref
-          >
-            <button className="bg-[#7147ED] rounded  px-2 my-3 ">
-              <span className="font-semibold text-primary-text text-sm">
-                {post.category.name}
-              </span>
-            </button>
-          </Link>
-          <h2 className="text-xl font-bold text-white">{post?.title}</h2>
-          <p>{post?.Content}</p>
-        </div> */}
+      
         <div className="mt-4 bg-primary-background rounded-lg overflow-hidden relative">
           <Image
             className="w-full h-[350px] object-contain"
@@ -131,28 +115,7 @@ console.log(post,"post");
           )}
         </div>
         <div>
-          {/* {user ? (
-            <PostMedia
-              postUpvotes={post.upvotes}
-              postDownvotes={post.downvotes}
-              postId={post._id}
-              totalComments={post.totalComments}
-           
-            />
-          ) : (
-            <div className="pointer-events-none">
-              <p className="text-red-500">
-                only access this area register user
-              </p>
-              <PostMedia
-                postUpvotes={post.upvotes}
-                postDownvotes={post.downvotes}
-                postId={post._id}
-                totalComments={post.totalComments}
-                
-              />
-            </div>
-          )} */}
+          
         </div>
       </div>
     </div>

@@ -1,14 +1,13 @@
 "use client";
 
 import { usePosts } from "@/hooks/posts/usePosts";
-// import PublishPost from "./PublishPost";
 import SearchBox from "./SearchBox";
 import Spinner from "./Spinner";
 import ErrorMessage from "./ErrorMessage";
 import InfiniteScroll from "react-infinite-scroller";
 import Post from "./Post";
 import Greeting from "./Greeting";
-import Banner from "./Banner";
+
 
 const AllPost = () => {
   const { posts, isLoading, fetchNextPage, hasNextPage } = usePosts();
@@ -17,7 +16,7 @@ const AllPost = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 ">
         {/* Main Content */}
         <div className="space-y-6 order-3 lg:order-1 lg:col-span-9 ">
-          <Banner />
+     
           <SearchBox />
           {isLoading ? (
             <Spinner className="my-4" />

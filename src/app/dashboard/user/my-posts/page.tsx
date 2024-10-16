@@ -18,7 +18,6 @@ const MyPosts = () => {
         <Button
           className="text-sm py-2 px-2 ml-2"
           onClick={() => {
-            // setSelectedPost(null);
             setModalIsOpen(true);
           }}
         >
@@ -32,7 +31,6 @@ const MyPosts = () => {
       <PostModal
         modalIsOpen={modalIsOpen}
         setModalIsOpen={setModalIsOpen}
-        // post={selectedPost}
       />
     </section>
   );

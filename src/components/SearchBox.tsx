@@ -9,7 +9,6 @@ const SearchBox = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
- 
   const initialSearch = searchParams.get("search") || "";
   const initialCategory = searchParams.get("category") || "";
 
@@ -18,7 +17,8 @@ const SearchBox = () => {
   const [debouncedSearch] = useDebounce(search, 500);
 
   useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString()); 
+    const params = new URLSearchParams(searchParams.toString());
+
     if (debouncedSearch) {
       params.set("search", debouncedSearch);
     } else {
@@ -32,22 +32,17 @@ const SearchBox = () => {
     }
 
     const queryString = params.toString();
-    router.push(`?${queryString}`);
-  }, [debouncedSearch, category, router, searchParams,setCategory, setSearch]);
+    if (queryString !== searchParams.toString()) {
+      router.replace(`?${queryString}`, { scroll: false });
+    }
+  }, [debouncedSearch, category, router, searchParams]);
 
-  
   const handleClearSearch = () => {
     setSearch("");
   };
 
- 
-  const handleResetCategory = () => {
-    setCategory(""); 
-  };
-
   return (
     <div className="custom-border-card p-4 rounded-lg shadow-md">
-      {/* Search Input */}
       <div className="mb-4 relative">
         <input
           type="text"
@@ -66,35 +61,30 @@ const SearchBox = () => {
         )}
       </div>
 
-      {/* Category Buttons */}
-      <div className="space-y-2 w-full">
-        <div className="flex flex-wrap gap-2">
-          {/* 'All' button */}
-          <button
-            onClick={handleResetCategory} 
-            className={`px-4 py-2 rounded-full border ${
-              category === ""
-                ? "bg-primary-orange text-white"
-                : "bg-gray-200 text-gray-700"
+      <div className="flex flex-wrap gap-2">
+        <p
+          onClick={() => setCategory("")}
+          className={`px-4 py-1 rounded border cursor-pointer ${
+            category === ""
+              ? "bg-purple-700 text-white"
+              : "bg-slate-800 text-white"
+          }`}
+        >
+          All
+        </p>
+        {categories?.map((categoryItem: { _id: string; name: string }) => (
+          <p
+            key={categoryItem._id}
+            onClick={() => setCategory(categoryItem._id)}
+            className={`px-4 py-1 rounded border cursor-pointer ${
+              category === categoryItem._id
+                ? "bg-purple-700 text-white"
+                : "bg-slate-800 text-white"
             }`}
           >
-            All
-          </button>
-          {/* Category buttons */}
-          {categories?.map((categoryItem: { _id: string; name: string }) => (
-            <button
-              key={categoryItem._id}
-              onClick={() => setCategory(categoryItem._id)}
-              className={`px-4 py-2 rounded-full border ${
-                category === categoryItem._id
-                  ? "bg-primary-orange text-white"
-                  : "bg-gray-200 text-gray-700"
-              }`}
-            >
-              {categoryItem.name}
-            </button>
-          ))}
-        </div>
+            {categoryItem.name}
+          </p>
+        ))}
       </div>
     </div>
   );

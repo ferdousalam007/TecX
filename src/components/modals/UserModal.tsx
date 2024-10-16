@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
@@ -10,7 +11,6 @@ import Button from "../Button";
 interface UserModalProps {
   modalIsOpen: boolean;
   setModalIsOpen: (value: boolean) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   user: any | null;
 }
 
