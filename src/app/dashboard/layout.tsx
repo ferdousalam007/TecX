@@ -28,16 +28,22 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Mobile sidebar
+  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true); // Desktop sidebar
   const [isMobile, setIsMobile] = useState(false);
   const { isPending, logout } = useLogout();
   const pathname = usePathname();
   const { user } = useMe();
+
   const handleResize = useCallback(() => {
     const isMobileWidth = window.innerWidth < 1024;
     setIsMobile(isMobileWidth);
-    if (!isMobileWidth) {
-      setIsSidebarOpen(true);
+    if (isMobileWidth) {
+      setIsSidebarOpen(false); // Keep sidebar closed on mobile by default
+      setIsDesktopSidebarOpen(false); // Disable desktop sidebar on mobile
+    } else {
+      setIsSidebarOpen(false); // Don't control mobile sidebar on desktop
+      setIsDesktopSidebarOpen(true); // Open sidebar on desktop by default
     }
   }, []);
 
@@ -48,13 +54,21 @@ export default function DashboardLayout({
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
+  // Close mobile sidebar when route changes
   useEffect(() => {
     if (isMobile) {
       setIsSidebarOpen(false);
     }
   }, [pathname, isMobile]);
 
-  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
+  // Toggle Sidebar functionality
+  const toggleSidebar = () => {
+    if (isMobile) {
+      setIsSidebarOpen((prev) => !prev); // Toggle mobile sidebar
+    } else {
+      setIsDesktopSidebarOpen((prev) => !prev); // Toggle desktop sidebar
+    }
+  };
 
   const sidebarVariants = {
     open: { x: 0, opacity: 1 },
@@ -71,8 +85,8 @@ export default function DashboardLayout({
         href={href}
         className={`flex items-center p-3 rounded-lg transition-colors font-medium ${
           pathname === href
-            ? "bg-secondary-background text-primary-blue"
-            : "text-secondary-text hover:bg-secondary-background hover:text-primary-blue"
+            ? "bg-[#4338CA] text-white"
+            : "text-gray-400 hover:bg-gray-700 hover:text-white"
         }`}
       >
         <Icon className="mr-3" />
@@ -82,29 +96,19 @@ export default function DashboardLayout({
   );
 
   return (
-    <div className="flex min-h-screen bg-primary-background">
-      {" "}
-      {/* Mobile Sidebar Toggle */}
-      <motion.button
-        className="lg:hidden fixed top-2/4 right-4 z-20 p-2 bg-primary-blue text-white rounded-full shadow-lg"
-        onClick={toggleSidebar}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        {isSidebarOpen ? <FaTimes /> : <FaBars />}
-      </motion.button>
+    <div className="flex min-h-screen bg-gray-900">
       {/* Sidebar */}
       <AnimatePresence>
-        {(isSidebarOpen || !isMobile) && (
+        {(isSidebarOpen || isDesktopSidebarOpen) && (
           <motion.aside
-            className="absolute lg:static w-64 h-[calc(100vh-80px)] mt-[110px] bg-primary-background shadow-lg overflow-auto rounded-lg z-10"
+            className="absolute lg:static w-64 h-[calc(100vh-80px)] mt-[110px] bg-gray-800 shadow-lg overflow-auto rounded-lg z-10"
             initial="closed"
             animate="open"
             exit="closed"
             variants={sidebarVariants}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
-            <div className="p-6 h-full flex flex-col ">
+            <div className="p-6 h-full flex flex-col">
               <nav className="flex-grow">
                 <motion.ul
                   className="space-y-3"
@@ -124,14 +128,12 @@ export default function DashboardLayout({
                 >
                   {user?.role === "admin" ? (
                     <>
-                      {" "}
                       <NavItem href="/dashboard/admin" icon={BsSpeedometer} end>
                         Dashboard
                       </NavItem>
                       <NavItem
                         href="/dashboard/admin/manage-categories"
                         icon={FaBars}
-                        // icon={CiFileOn}
                       >
                         Create Categories
                       </NavItem>
@@ -178,14 +180,16 @@ export default function DashboardLayout({
                   )}
                 </motion.ul>
               </nav>
+
+              {/* Logout Button */}
               <motion.div
-                className="mt-auto border-t border-secondary-background pt-4"
+                className="mt-auto border-t border-gray-700 pt-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
               >
                 <motion.button
-                  className="flex items-center w-full p-3 rounded-lg bg-secondary-background text-secondary-text hover:bg-primary-blue hover:text-white transition-colors"
+                  className="flex items-center w-full p-3 rounded-lg bg-gray-700 text-gray-400 hover:bg-purple-600 hover:text-white transition-colors"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   disabled={isPending}
@@ -195,10 +199,23 @@ export default function DashboardLayout({
                   Sign Out
                 </motion.button>
               </motion.div>
+
+              {/* Extra Sidebar Toggle Button */}
+              <motion.button
+                className="w-full mt-4 p-3 rounded-lg bg-purple-600 text-white shadow-lg flex justify-center"
+                onClick={toggleSidebar}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {isSidebarOpen || isDesktopSidebarOpen
+                  ? "Close Sidebar"
+                  : "Open Sidebar"}
+              </motion.button>
             </div>
           </motion.aside>
         )}
       </AnimatePresence>
+
       {/* Main Content Area */}
       <main className="flex-1 overflow-y-auto mt-[150px]">
         <motion.div
@@ -207,6 +224,14 @@ export default function DashboardLayout({
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
+          <motion.button
+            className="absolute top-0 left-[255px] md:left-0 z-20 p-2 bg-purple-600 text-white rounded shadow-lg w-[40px] h-[40px]"
+            onClick={toggleSidebar}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            {isSidebarOpen || isDesktopSidebarOpen ? <FaTimes /> : <FaBars />}
+          </motion.button>
           {children}
         </motion.div>
       </main>
