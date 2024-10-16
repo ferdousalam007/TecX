@@ -16,6 +16,7 @@ import { LuActivitySquare } from "react-icons/lu";
 import { CiFileOn } from "react-icons/ci";
 import { useMe } from "@/hooks/auth/useMe";
 import { MdOutlinePayment } from "react-icons/md";
+import Image from "next/image";
 
 interface NavItemProps {
   href: string;
@@ -34,7 +35,6 @@ export default function DashboardLayout({
   const { isPending, logout } = useLogout();
   const pathname = usePathname();
   const { user } = useMe();
-
   const handleResize = useCallback(() => {
     const isMobileWidth = window.innerWidth < 1024;
     setIsMobile(isMobileWidth);
@@ -108,7 +108,26 @@ export default function DashboardLayout({
             variants={sidebarVariants}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
-            <div className="p-6 h-full flex flex-col">
+            <div className="p-6 flex flex-col ">
+              <div className="mb-2  flex items-center flex-col gap-4 p-4  bg-green-900 bg-opacity-25  backdrop-blur-md rounded-[10px]  shadow-md">
+                <Image
+                  src={user?.profilePic}
+                  alt="User Photo"
+                  width={48}
+                  height={48}
+                  className="rounded-full "
+                />
+                <div>
+                  <h2 className="text-lg font-medium">
+                    <h2 className="text-lg font-medium">
+                      {user?.name?.length > 20
+                        ? `${user?.name?.slice(0, 20)}...`
+                        : user?.name?.charAt(0).toUpperCase() +
+                          user?.name?.slice(1)}
+                    </h2>
+                  </h2>
+                </div>
+              </div>
               <nav className="flex-grow">
                 <motion.ul
                   className="space-y-3"

@@ -1,5 +1,5 @@
 "use client";
-import { FaPlus, FaRegPenToSquare, FaRegTrashCan } from "react-icons/fa6";
+import {  FaRegPenToSquare, FaRegTrashCan } from "react-icons/fa6";
 import { usePosts } from "../hooks/posts/usePosts";
 import Button from "./Button";
 import { useDeletePost } from "../hooks/posts/useDeletePost";
@@ -30,7 +30,6 @@ const PostTable = () => {
     fetchNextPage,
     hasNextPage,
   } = usePosts();
- 
 
   const posts =
     user?.role === "admin"
@@ -71,16 +70,7 @@ const PostTable = () => {
                 Status
               </th>
               <th className="px-6 py-3 flex items-center text-left tracking-wider whitespace-nowrap">
-                <span className="hidden sm:inline">Actions</span>
-                <Button
-                  className="text-sm py-2 px-2 ml-2"
-                  onClick={() => {
-                    setSelectedPost(null);
-                    setModalIsOpen(true);
-                  }}
-                >
-                  <FaPlus />
-                </Button>
+                Actions
               </th>
             </tr>
           </thead>

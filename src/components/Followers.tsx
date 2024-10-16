@@ -9,37 +9,52 @@ const Followers = ({ followers }: any) => {
       <h2 className="text-xl font-semibold text-primary-text mb-3">
         Followers
       </h2>
-      {followers?.length === 0 && (
+
+      {followers?.length === 0 ? (
+        // Display this if no followers
         <div className="flex items-center justify-center space-x-2">
           <FaUserEdit className="text-3xl text-gray-300" />
-          <p className="text-gray-300">No followers yet</p>
+          <p className="text-gray-300">No followers available</p>
+        </div>
+      ) : (
+        // Followers table
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-left text-sm">
+            <thead>
+              <tr className="border-b border-gray-200">
+                <th className="py-2 px-4">Profile Picture</th>
+                <th className="py-2 px-4">Name</th>
+                <th className="py-2 px-4">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+              {followers?.map((follower: any) => (
+                <tr
+                  key={follower._id}
+                  className="border-b border-gray-500 hover:bg-slate-900"
+                >
+                  <td className="py-2 px-4">
+                    <Image
+                      src={follower.profilePic}
+                      alt="Follower Profile"
+                      className="w-10 h-10 rounded-full"
+                      width={40}
+                      height={40}
+                    />
+                  </td>
+                  <td className="py-2 px-4 font-semibold italic">
+                    {follower.name}
+                  </td>
+                  <td className="py-2 px-4 text-xs  italic">
+                    {follower.email}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
-      {/* Followers List */}
-      <ul>
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        {followers?.map((follower: any) => (
-          <li className="mb-3" key={follower._id}>
-            <div className="flex justify-between items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <Image
-                  src={follower.profilePic}
-                  alt=""
-                  className="w-10 h-10 rounded-full"
-                  width={40}
-                  height={40}
-                />
-                <div>
-                  <div className="font-semibold italic">{follower.name}</div>
-                  <div className="text-xs text-gray-500 italic">
-                    {follower.email}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };
