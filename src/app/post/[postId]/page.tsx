@@ -119,11 +119,8 @@ const PostDetails = () => {
   return (
     <div className="container mx-auto mt-[140px] mb-14">
       {user ? (
-        <div
-          className="max-w-6xl mx-auto px-5 py-4 relative border border-white border-opacity-50 backdrop-blur-sm bg-[#040404]"
-          ref={targetRef}
-        >
-          <div className=" rounded-lg p-6 shadow-md space-y-4">
+        <div className="max-w-6xl mx-auto px-5 py-4 relative border border-white border-opacity-50 backdrop-blur-sm bg-[#040404]" ref={targetRef}>
+          <div className=" rounded-lg p-6 shadow-md space-y-2">
             {/* Post Title */}
             <span className="text-sm  rounded bg-purple-600 display-inline-block px-2 py-1 text-white border border-white border-opacity-50">
               {post?.category?.name}
