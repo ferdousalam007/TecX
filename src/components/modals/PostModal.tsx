@@ -40,6 +40,7 @@ interface PostModalProps {
 
 interface FormData {
   title: string;
+  description: string;
   content: string;
   category: string;
   author: string;
@@ -62,6 +63,7 @@ const PostModal: React.FC<PostModalProps> = ({
   } = useForm<FormData>({
     defaultValues: {
       title: "",
+      description: "",
       content: "",
       category: "",
       images: [],
@@ -101,6 +103,7 @@ const PostModal: React.FC<PostModalProps> = ({
     if (post) {
       reset({
         title: post.title,
+        description: post.description,
         content: post.content,
         category: post.category?._id,
         images: post.images,
@@ -110,6 +113,7 @@ const PostModal: React.FC<PostModalProps> = ({
     } else {
       reset({
         title: "",
+        description: "",
         content: "",
         category: "",
         images: [],
@@ -208,6 +212,22 @@ const PostModal: React.FC<PostModalProps> = ({
                 {errors.title && (
                   <p className="text-primary-red text-sm">
                     {errors.title.message}
+                  </p>
+                )}
+              </div>
+              <div className="space-y-1">
+                <label className="block text-sm font-medium text-primary-text">
+                  Description
+                </label>
+                <input
+                  type="text"
+                  {...register("description", { required: "Description is required" })}
+                  className="w-full border-secondary-grey rounded-md shadow-sm focus:border-primary-orange border outline-none py-1.5 lg:py-2 px-3"
+                  placeholder="Enter post description"
+                />
+                {errors.description && (
+                  <p className="text-primary-red text-sm">
+                    {errors.description.message}
                   </p>
                 )}
               </div>

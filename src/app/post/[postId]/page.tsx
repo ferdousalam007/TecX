@@ -17,10 +17,10 @@ import { useMe } from "@/hooks/auth/useMe";
 import { FaSpinner, FaEdit, FaTrash } from "react-icons/fa";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePDF } from "react-to-pdf";
-import { FaRegFilePdf } from "react-icons/fa6";
 import { useDeleteComment } from "@/hooks/comments/useDeleteComment";
 import { useUpdateComment } from "@/hooks/comments/useUpdateComment";
 import SinglePost from "@/components/SinglePost";
+import { VscFilePdf } from "react-icons/vsc";
 
 interface FormData {
   text: string;
@@ -117,21 +117,27 @@ const PostDetails = () => {
   // if (!post) return <ErrorMessage message={"No Post Found"} />;
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto mt-[140px] mb-14">
       {user ? (
-        <div className="max-w-6xl mx-auto px-5 py-4">
-          <div
-            className="custom-border-card rounded-lg p-6 shadow-md space-y-6"
-            ref={targetRef}
-          >
+        <div
+          className="max-w-6xl mx-auto px-5 py-4 relative border border-white border-opacity-50 backdrop-blur-sm bg-[#040404]"
+          ref={targetRef}
+        >
+          <div className=" rounded-lg p-6 shadow-md space-y-4">
             {/* Post Title */}
-            <div className="flex items-center gap-3 justify-between">
-              <h2 className="text-2xl font-bold text-primary-text">
-                {post?.title}
-              </h2>
+            <span className="text-sm  rounded bg-purple-600 display-inline-block px-2 py-1 text-white border border-white border-opacity-50">
+              {post?.category?.name}
+            </span>
+            <div className="flex  flex-wrap flex-col gap-3 ">
+              <h2 className="text-2xl font-medium ">{post?.title}</h2>
+              <PostAuthor
+                author={post?.author}
+                postCreatedAt={post?.createdAt}
+              />
+              <p>{post?.description}</p>
             </div>
             {/* Author and Date */}
-            <PostAuthor author={post?.author} postCreatedAt={post?.createdAt} />
+
             <div>
               <Swiper
                 spaceBetween={30}
@@ -155,33 +161,35 @@ const PostDetails = () => {
                   </SwiperSlide>
                 ))}
               </Swiper>
+              <div className="flex items-center gap-3 flex-wrap mt-4">
+                <PostMedia
+                  postUpvotes={post?.upvotes}
+                  postDownvotes={post?.downvotes}
+                  postId={post?._id}
+                  totalComments={post?.comments?.length}
+                  viewsCount={post?.viewsCount}
+                />{" "}
+                <div
+                  onClick={handleGeneratePDF}
+                  className="flex items-center text-[#D97A37] gap-2  px-2 py-2 rounded-md  transition ease-in duration-300 text-xs bg-[#272B34] cursor-pointer"
+                  // disabled={isPdfGenerating}
+                >
+                  <VscFilePdf className="" size={16} />
+                  {isPdfGenerating ? "Creating..." : " PDF"}
+                </div>
+              </div>
             </div>
+
             {/* Post Content */}
             <p
               className="text-primary-text"
               dangerouslySetInnerHTML={{ __html: post?.content }}
             />
 
-            <PostMedia
-              postUpvotes={post?.upvotes}
-              postDownvotes={post?.downvotes}
-              postId={post?._id}
-              totalComments={post?.comments?.length}
-              viewsCount={post?.viewsCount}
-            />
-
             {/* Comments Section */}
             <div className="space-y-4">
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center  gap-3">
                 <h2 className="text-xl font-semibold">Comments</h2>
-                <button
-                  onClick={handleGeneratePDF}
-                  className="flex items-center gap-2 text-primary-text px-2 py-1 bg-primary-background rounded-md hover:bg-secondary-background transition ease-in duration-300 text-xs border border-primary-blue"
-                  disabled={isPdfGenerating}
-                >
-                  <FaRegFilePdf className="text-primary-blue" size={16} />{" "}
-                  {isPdfGenerating ? "Generating PDF..." : "Generate PDF"}
-                </button>
               </div>
               {post?.comments && post?.comments?.length > 0 ? (
                 post?.comments.map((comment: Comment) => (
@@ -270,13 +278,13 @@ const PostDetails = () => {
                 rows={2}
                 placeholder="Write your comment..."
                 {...register("text", { required: true })}
-                className="w-full mb-0.5 rounded-md shadow-sm focus:border-primary-blue border outline-none py-2 lg:py-4 px-3"
+                className="w-full mb-0.5 rounded-md shadow-sm  outline-none py-2 lg:py-4 px-3"
               />
               <div className="flex justify-end items-center p-2 gap-2 w-full">
                 <button
                   type="submit"
-                  className="px-3 py-1.5 bg-primary-blue text-white rounded-md border border-primary-blue
-                hover:bg-white hover:text-primary-blue hover:border-primary-blue transition ease-in-out duration-300"
+                  className="px-3 py-1.5 bg-primary-blue text-white rounded-md border 
+                   transition ease-in-out duration-300"
                   disabled={isCreating}
                 >
                   {isCreating ? (

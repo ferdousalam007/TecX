@@ -88,7 +88,7 @@ const PostAuthor: React.FC<PostAuthorProps> = ({ author, postCreatedAt }) => {
     <div className="flex flex-col md:flex-row justify-between items-center gap-3">
       <div className="flex items-center  space-x-4">
         <Image
-          className="w-10 h-10 rounded-full object-cover"
+          className="w-10 h-10 rounded-full object-cover border custom-border-card"
           src={author?.profilePic}
           alt={`${author?.name}'s profile picture`}
           width={40}
@@ -96,7 +96,7 @@ const PostAuthor: React.FC<PostAuthorProps> = ({ author, postCreatedAt }) => {
         />
         <div>
           <div className="font-semibold">{author?.name}</div>
-          <div className="text-xs text-slate-700">
+          <div className="text-xs ">
             {author?.name && format(new Date(postCreatedAt), "PP")}
           </div>
         </div>
