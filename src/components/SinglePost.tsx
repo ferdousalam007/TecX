@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Image from "next/image";
-import { FaRegFilePdf } from "react-icons/fa6";
 // import { FaEdit, FaTrash } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -66,7 +65,7 @@ const SinglePost = ({ post }: { post: any }) => {
               <p className="text-red-500">
                 only access this area register user
               </p>
-              <div className="flex items-center gap-3 flex-wrap mt-4">
+              <div className="flex items-center gap-3 flex-wrap mt-4 mb-4 border-b border-[#353535] pb-6 border-b-opacity-75">
                 <PostMedia
                   postUpvotes={post?.upvotes}
                   postDownvotes={post?.downvotes}

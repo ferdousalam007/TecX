@@ -119,7 +119,10 @@ const PostDetails = () => {
   return (
     <div className="container mx-auto mt-[140px] mb-14">
       {user ? (
-        <div className="max-w-6xl mx-auto px-5 py-4 relative border border-white border-opacity-50 backdrop-blur-sm bg-[#040404]" ref={targetRef}>
+        <div
+          className="max-w-6xl mx-auto px-5 py-4 relative border border-white border-opacity-50 backdrop-blur-sm bg-[#040404]"
+          ref={targetRef}
+        >
           <div className=" rounded-lg p-6 shadow-md space-y-2">
             {/* Post Title */}
             <span className="text-sm  rounded bg-purple-600 display-inline-block px-2 py-1 text-white border border-white border-opacity-50">
@@ -158,7 +161,7 @@ const PostDetails = () => {
                   </SwiperSlide>
                 ))}
               </Swiper>
-              <div className="flex items-center gap-3 flex-wrap mt-4">
+              <div className="flex items-center gap-3 flex-wrap mt-4 mb-4 border-b border-[#353535] pb-6 border-b-opacity-75">
                 <PostMedia
                   postUpvotes={post?.upvotes}
                   postDownvotes={post?.downvotes}
@@ -179,7 +182,7 @@ const PostDetails = () => {
 
             {/* Post Content */}
             <p
-              className="text-primary-text"
+              className="text-primary-text space-y-4 "
               dangerouslySetInnerHTML={{ __html: post?.content }}
             />
 

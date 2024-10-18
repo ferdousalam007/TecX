@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+"use client"
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo,  useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import Modal from "react-modal";
 import { AnimatePresence, motion } from "framer-motion";
@@ -8,7 +10,6 @@ import Dropzone from "react-dropzone";
 import axios from "axios";
 import { IoMdCloudUpload } from "react-icons/io";
 import dynamic from "next/dynamic";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 import Button from "../Button";
 import { useCategories } from "@/hooks/categories/useCategories";
@@ -17,6 +18,8 @@ import { useUpdatePost } from "@/hooks/posts/useUpdatePost";
 import { useMe } from "@/hooks/auth/useMe";
 import Image from "next/image";
 import handleBase64Images from "@/utils/handleBase64Images";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
 
 const formats = [
   "header",
@@ -53,6 +56,7 @@ const PostModal: React.FC<PostModalProps> = ({
   setModalIsOpen,
   post,
 }) => {
+  
   const {
     register,
     handleSubmit,
@@ -81,8 +85,16 @@ const PostModal: React.FC<PostModalProps> = ({
     setModalIsOpen(false);
   };
 
-  const modules = useMemo(
-    () => ({
+
+
+const modules = useMemo(() => {
+  if (typeof window !== "undefined") {
+    const Quill = require("react-quill").Quill;
+    const QuillResizeImage = require("quill-resize-image");
+
+    Quill.register("modules/resize", QuillResizeImage);
+
+    return {
       toolbar: [
         [{ header: [1, 2, 3, false] }],
         ["bold", "italic", "underline", "strike", "blockquote"],
@@ -95,9 +107,12 @@ const PostModal: React.FC<PostModalProps> = ({
         ["link", "image"],
         ["clean"],
       ],
-    }),
-    []
-  );
+      resize: { locale: {} },
+    };
+  }
+
+  return {};
+}, []);
 
   useEffect(() => {
     if (post) {
@@ -187,7 +202,7 @@ const PostModal: React.FC<PostModalProps> = ({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.5 }}
             transition={{ duration: 0.3 }}
-            className="relative md:w-2/3 mx-auto max-h-[80vh] overflow-auto rounded-lg bg-primary-background p-8 shadow-lg"
+            className="relative md:w-2/3 mx-auto max-h-[80vh] overflow-auto rounded-lg  p-8 shadow-lg"
           >
             <button
               onClick={closeModal}
@@ -221,7 +236,9 @@ const PostModal: React.FC<PostModalProps> = ({
                 </label>
                 <input
                   type="text"
-                  {...register("description", { required: "Description is required" })}
+                  {...register("description", {
+                    required: "Description is required",
+                  })}
                   className="w-full border-secondary-grey rounded-md shadow-sm focus:border-primary-orange border outline-none py-1.5 lg:py-2 px-3"
                   placeholder="Enter post description"
                 />
@@ -344,6 +361,7 @@ const PostModal: React.FC<PostModalProps> = ({
                   rules={{ required: "Content is required" }}
                   render={({ field }) => (
                     <ReactQuill
+                      // ref={quillRef}
                       value={field.value}
                       onChange={field.onChange}
                       modules={modules}
