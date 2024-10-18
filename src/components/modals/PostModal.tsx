@@ -202,7 +202,7 @@ const modules = useMemo(() => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.5 }}
             transition={{ duration: 0.3 }}
-            className="relative md:w-2/3 mx-auto max-h-[80vh] overflow-auto rounded-lg  p-8 shadow-lg"
+            className="relative md:w-2/3 mx-auto max-h-[80vh] overflow-auto rounded-lg  custom-border-modal p-8 shadow-lg"
           >
             <button
               onClick={closeModal}
@@ -337,12 +337,12 @@ const modules = useMemo(() => {
                         alt={`Uploaded image ${index + 1}`}
                         width={100}
                         height={100}
-                        className="rounded-md object-cover"
+                        className="rounded-md object-cover "
                       />
                       <button
                         type="button"
                         onClick={() => removeImage(index)}
-                        className="absolute top-0 right-0 rounded-full bg-primary-red text-white p-1 text-xs"
+                        className="absolute top-0 right-0 rounded-full bg-red-600 text-white p-1 text-xs"
                       >
                         &times;
                       </button>
@@ -378,8 +378,8 @@ const modules = useMemo(() => {
               </div>
 
               <div className="flex items-center space-x-3">
-                <label className="text-sm font-medium text-primary-text">
-                  Premium Post?
+                <label className="text-xl font-medium text-[#f738dd]">
+                Is  Premium ?
                 </label>
                 <input
                   type="checkbox"

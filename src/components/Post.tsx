@@ -12,7 +12,7 @@ const Post = ({ post }: any) => {
 console.log(post,"post");
   const isPremium = post.isPremium;
   const canAccessPremium =
-    user?.isVerified || user?.role === "admin" || user?._id === post.author._id;
+    user?.isVerified || user?.role === "admin" || user?._id === post?.author?._id;
 
   return (
     <div
@@ -22,15 +22,7 @@ console.log(post,"post");
           : "hover:shadow-md"
       }`}
     >
-      {/* <div className="flex justify-between items-start mb-4">
-        <PostAuthor author={post.author} postCreatedAt={post.createdAt} />
-        {isPremium && (
-          <div className="flex items-center space-x-1 bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-sm font-semibold">
-            <FaStar size={16} />
-            <span>Premium</span>
-          </div>
-        )}
-      </div> */}
+     
       <Link
         href={
           !canAccessPremium && post.isPremium
@@ -109,7 +101,7 @@ console.log(post,"post");
                 postId={post._id}
                 totalComments={post.totalComments}
                 viewsCount={post.viewsCount}
-                // disabled={true as boolean}
+               
               />
             </div>
           )}

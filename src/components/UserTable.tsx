@@ -11,11 +11,11 @@ import UserModal from "./modals/UserModal";
 const getRoleBadgeColor = (role: string) => {
   switch (role) {
     case "admin":
-      return "bg-primary-blue text-white";
+      return "bg-purple-500 text-white";
     case "user":
-      return "bg-primary-green text-white";
+      return "bg-yellow-700 text-white";
     default:
-      return "bg-secondary-red text-white";
+      return "bg-slate-800  text-white";
   }
 };
 

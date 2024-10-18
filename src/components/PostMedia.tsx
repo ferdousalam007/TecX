@@ -22,6 +22,7 @@ const PostMedia = ({
   postId,
   totalComments,
   viewsCount,
+  hideTask
 }: {
   postUpvotes: string[];
   postDownvotes: string[];
@@ -29,6 +30,7 @@ const PostMedia = ({
   totalComments: number;
   viewsCount?: number;
   disabled?: boolean;
+  hideTask?: boolean;
 }) => {
   const { user } = useMe();
   const { updatePost } = useUpdatePost();
@@ -128,23 +130,25 @@ const PostMedia = ({
         <span>{viewsCount}</span>
       </div>
 
-      <div className="flex items-center space-x-2 bg-[#272B34] rounded-xl px-4 py-2">
-        <FacebookShareButton url={shareUrl}>
-          <div className="flex items-center space-x-2">
-            <FaFacebookSquare className="text-lg text-[#7147ED]" />
-          </div>
-        </FacebookShareButton>
-        <TwitterShareButton url={shareUrl}>
-          <div className="flex items-center space-x-2">
-            <FaTwitterSquare className="text-lg text-[#7147ED]" />
-          </div>
-        </TwitterShareButton>
-        <WhatsappShareButton url={shareUrl}>
-          <div className="flex items-center space-x-2">
-            <FaWhatsapp className="text-lg text-[#7147ED]" />
-          </div>
-        </WhatsappShareButton>
-      </div>
+      {hideTask === false && (
+        <div className="flex items-center space-x-2 bg-[#272B34] rounded-xl px-4 py-2">
+          <FacebookShareButton url={shareUrl}>
+            <div className="flex items-center space-x-2">
+              <FaFacebookSquare className="text-lg text-[#7147ED]" />
+            </div>
+          </FacebookShareButton>
+          <TwitterShareButton url={shareUrl}>
+            <div className="flex items-center space-x-2">
+              <FaTwitterSquare className="text-lg text-[#7147ED]" />
+            </div>
+          </TwitterShareButton>
+          <WhatsappShareButton url={shareUrl}>
+            <div className="flex items-center space-x-2">
+              <FaWhatsapp className="text-lg text-[#7147ED]" />
+            </div>
+          </WhatsappShareButton>
+        </div>
+      )}
     </div>
   );
 };

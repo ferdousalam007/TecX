@@ -1,6 +1,5 @@
 "use client";
-import PaymentChart from "@/components/PaymentChart";
-import PostChart from "@/components/PostChart";
+
 import StatsCard from "@/components/StatsCard";
 import { format } from "date-fns";
 import React from "react";
@@ -9,7 +8,6 @@ import { PiArticleLight } from "react-icons/pi";
 import { MdViewInAr } from "react-icons/md";
 import { BsListCheck } from "react-icons/bs";
 
-
 import { useQuery } from "@tanstack/react-query";
 import {
   fetchAnalyticsData,
@@ -17,9 +15,11 @@ import {
   fetchPostMetrics,
 } from "@/services/apiAnalytics";
 import Spinner from "@/components/Spinner";
+import PostSummeryChart from "@/components/PostSummeryChart";
+import PaymentSummery from "@/components/PaymentSummery";
 
 const Page = () => {
-  const { data: analyticsData, isLoading: isLoadingAnalytics } = useQuery({
+  const { data: analyticsbox, isLoading: isLoadingAnalytics } = useQuery({
     queryKey: ["analyticsData"],
     queryFn: () => fetchAnalyticsData(),
   });
@@ -28,7 +28,7 @@ const Page = () => {
     queryKey: ["postMetrics"],
     queryFn: () => fetchPostMetrics(),
   });
-  console.log(postMetrics);
+ 
   const { data: paymentMetrics, isLoading: isLoadingPayments } = useQuery({
     queryKey: ["paymentMetrics"],
     queryFn: () => fetchPaymentMetrics(),
@@ -56,36 +56,25 @@ const Page = () => {
     (item: { upvoteCount: number }) => item.upvoteCount
   );
 
-  const postChartConfig = {
+
+  const postChartData = {
     labels: postDates,
     datasets: [
       {
         label: "Posts",
         data: postCounts,
-        backgroundColor: "#62035a",
-        borderColor: "#62035a",
-        borderWidth: 1,
       },
       {
         label: "Views",
         data: viewsCount,
-        backgroundColor: "#fc2b14",
-        borderColor: "#fc2b14",
-        borderWidth: 1,
       },
       {
         label: "Comments",
         data: commentCounts,
-        backgroundColor: "#10dba6",
-        borderColor: "#10dba6",
-        borderWidth: 1,
       },
       {
         label: "Upvotes",
         data: upvoteCounts,
-        backgroundColor: "#1447fc",
-        borderColor: "#1447fc",
-        borderWidth: 1,
       },
     ],
   };
@@ -93,7 +82,7 @@ const Page = () => {
   const paymentDates = paymentMetrics?.map((item: { date: string }) =>
     format(new Date(item.date), "MMM d")
   );
-  const paymentChartConfig = {
+  const paymentChartData = {
     labels: paymentDates,
     datasets: [
       {
@@ -101,48 +90,46 @@ const Page = () => {
         data: paymentMetrics?.map(
           (item: { totalAmount: number }) => item.totalAmount
         ),
-        backgroundColor: "rgba(75, 192, 192, 0.6)",
-        borderColor: "rgba(75, 192, 192, 1)",
-        borderWidth: 1,
       },
     ],
   };
-
+console.log(paymentChartData)
   return (
     <section>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-10">
         <StatsCard
           title="Users"
-          value={analyticsData?.user}
+          value={analyticsbox?.user}
           icon={<FiUsers />}
         />
         <StatsCard
           title="Posts"
-          value={analyticsData?.post}
+          value={analyticsbox?.post}
           icon={<PiArticleLight />}
         />
         <StatsCard
           title="Views"
-          value={analyticsData?.viewsCount}
+          value={analyticsbox?.viewsCount}
           icon={<MdViewInAr />}
         />
         <StatsCard
           title="Categories"
-          value={analyticsData?.category}
+          value={analyticsbox?.category}
           icon={<BsListCheck />}
         />
       </div>
-      <div className="bg-secondary-background rounded-lg shadow-lg mb-8 p-5 lg:p-8">
-        <h2 className="text-xl lg:text-2xl font-semibold text-center text-primary-text mb-5">
+      <div className="custom-border-card rounded-lg shadow-lg mb-8 p-5 lg:p-8">
+        <h2 className="text-xl lg:text-2xl  font-semibold text-center text-primary-text mb-5">
           Post Analitics
         </h2>
-        <PostChart chartData={postChartConfig} />
+        <PostSummeryChart chartData={postChartData} />
       </div>
-      <div className="bg-secondary-background rounded-lg shadow-lg mb-8 p-5 lg:p-8">
+
+      <div className="custom-border-card rounded-lg shadow-lg mb-8 p-5 lg:p-8">
         <h2 className="text-xl lg:text-2xl  font-semibold text-center text-primary-text mb-5">
           Payment Analitics
         </h2>
-        <PaymentChart chartData={paymentChartConfig} />
+        <PaymentSummery paymentChartData={paymentChartData} />
       </div>
     </section>
   );

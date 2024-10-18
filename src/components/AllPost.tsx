@@ -6,13 +6,13 @@ import Spinner from "./Spinner";
 import ErrorMessage from "./ErrorMessage";
 import InfiniteScroll from "react-infinite-scroller";
 import Post from "./Post";
-import Greeting from "./Greeting";
+import PostSideBar from "./PostSideBar";
 
 
 const AllPost = () => {
   const { posts, isLoading, fetchNextPage, hasNextPage } = usePosts();
   return (
-    <div className="container mx-auto bg-primary-background px-5 py-4 mb-auto">
+    <div className="container mx-auto bg-primary-background px-5 py-4 mb-auto pt-[100px]">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 ">
         {/* Main Content */}
         <div className="space-y-6 order-3 lg:order-1 lg:col-span-9 ">
@@ -41,8 +41,8 @@ const AllPost = () => {
         </div>
 
         {/* Right Sidebar */}
-        <div className="space-y-6   md:sticky md:top-28 md:z-10 h-[300px] order-2 lg:order-3 lg:col-span-3">
-          <Greeting />
+        <div className="space-y-6   order-2 lg:order-3 lg:col-span-3">
+        <PostSideBar />
         </div>
       </div>
     </div>

@@ -30,6 +30,7 @@
     "react-quill": "^2.0.0",
     "react-share": "^5.1.0",
     "react-to-pdf": "^1.0.1",
+    "recharts": "^2.10.1",
     "swiper": "^11.1.14",
     "use-debounce": "^10.0.3"
   },
