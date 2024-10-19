@@ -199,7 +199,7 @@ const PostDetails = () => {
                   >
                     <div className="flex items-center space-x-4">
                       <Image
-                        src={comment?.author.profilePic}
+                        src={comment?.author?.profilePic}
                         alt="Author"
                         className="w-10 h-10 rounded-full"
                         width={40}

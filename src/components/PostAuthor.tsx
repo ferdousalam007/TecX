@@ -5,12 +5,13 @@ import { useUpdateMe } from "@/hooks/auth/useUpdateMe";
 import { useUpdateUser } from "@/hooks/users/useUpdateUser";
 import { useMe } from "@/hooks/auth/useMe";
 import { FiUserPlus, FiUserMinus } from "react-icons/fi";
-
+import { MdVerified } from "react-icons/md";
 interface Author {
   _id: string;
   name: string;
   profilePic: string;
   email: string;
+
   followers: Array<{
     _id: string;
     name: string;
@@ -28,9 +29,15 @@ interface Author {
 interface PostAuthorProps {
   author: Author;
   postCreatedAt: string;
+  isVerified?: boolean;
 }
 
-const PostAuthor: React.FC<PostAuthorProps> = ({ author, postCreatedAt }) => {
+const PostAuthor: React.FC<PostAuthorProps> = ({
+  author,
+  postCreatedAt,
+  isVerified,
+}) => {
+  console.log(author, "author");
   const { user } = useMe();
   const { updateUser: updateCurrentUser } = useUpdateMe();
   const { updateUser } = useUpdateUser();
@@ -94,8 +101,16 @@ const PostAuthor: React.FC<PostAuthorProps> = ({ author, postCreatedAt }) => {
           width={40}
           height={40}
         />
+
         <div>
-          <div className="font-semibold">{author?.name}</div>
+          <div className="font-semibold flex items-center gap-1">
+            {author?.name}
+            {isVerified === true && (
+              <span className="text-blue-500 text-xl">
+                <MdVerified />
+              </span>
+            )}
+          </div>
           <div className="text-xs ">
             {author?.name && format(new Date(postCreatedAt), "PP")}
           </div>

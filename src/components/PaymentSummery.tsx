@@ -25,7 +25,7 @@ type PaymentChartProps = {
 
 const PaymentSummery = ({ paymentChartData }: PaymentChartProps) => {
 
-  const chartData = paymentChartData.labels.map((label, index) => ({
+  const chartData = paymentChartData?.labels?.map((label, index) => ({
     date: label,
     totalAmount: paymentChartData.datasets[0].data[index],
   }));
@@ -56,7 +56,7 @@ const PaymentSummery = ({ paymentChartData }: PaymentChartProps) => {
         />
         <Legend />
         <Bar dataKey="totalAmount" fill="#ff7f0e">
-          {chartData.map((entry, index) => (
+          {chartData?.map((entry, index) => (
             <Cell
               key={`cell-${index}`}
               fill={index % 2 === 0 ? "#ff7f0e" : "#82ca9d"}

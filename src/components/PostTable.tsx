@@ -123,18 +123,18 @@ const PostTable = () => {
                 </span>
               </td>
               <td className="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
-                {post.author.name}
+                {post?.author?.name}
               </td>
               <td className="px-6 py-4 whitespace-nowrap hidden md:table-cell">
-                {post.category.name}
+                {post?.category?.name}
               </td>
               <td className="px-6 py-4 whitespace-nowrap hidden lg:table-cell">
                 <span
                   className={`px-2 py-1 rounded text-xs font-medium ${getStatusBadgeColor(
-                    post.isPremium
+                    post?.isPremium
                   )}`}
                 >
-                  {post.isPremium ? "Premium" : "Regular"}
+                  {post?.isPremium ? "Premium" : "Regular"}
                 </span>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">

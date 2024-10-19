@@ -4,15 +4,25 @@ import PostMedia from "./PostMedia";
 import PostAuthor from "./PostAuthor";
 import Link from "next/link";
 import { useMe } from "@/hooks/auth/useMe";
-import { IoMdLock } from "react-icons/io";
+import { useUsers } from "@/hooks/users/useUsers";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Post = ({ post }: any) => {
   const { user } = useMe();
-console.log(post,"post");
+  const { users, isLoading } = useUsers();
+  // Find the author in the users list
+  const authorMatch = users?.find(
+    (user: { _id: string }) => user._id === post.author._id
+  );
+  const isAuthorVerified = authorMatch?.isVerified;
+  console.log(isAuthorVerified, "isAuthorVerified check");
+  // console.log(users, "last check");
+  // console.log(post, "post check");
   const isPremium = post.isPremium;
   const canAccessPremium =
-    user?.isVerified || user?.role === "admin" || user?._id === post?.author?._id;
+    user?.isVerified ||
+    user?.role === "admin" ||
+    user?._id === post?.author?._id;
 
   return (
     <div
@@ -22,7 +32,6 @@ console.log(post,"post");
           : "hover:shadow-md"
       }`}
     >
-     
       <Link
         href={
           !canAccessPremium && post.isPremium
@@ -30,10 +39,9 @@ console.log(post,"post");
             : `/post/${post._id}`
         }
       >
-      
         <div className="mt-4 bg-primary-background rounded-lg overflow-hidden relative">
           <Image
-            className="w-full h-[350px] object-contain"
+            className="w-full h-[350px] object-contain custom-border-card p-2"
             src={post.images[0]}
             alt="Post image"
             width={500}
@@ -41,13 +49,11 @@ console.log(post,"post");
           />
           {isPremium && !canAccessPremium && (
             <>
-              <div className="absolute inset-0 bg-black  bg-opacity-70 flex items-center justify-center">
-                <div className="text-white text-center flex gap-2">
-                  <IoMdLock className="mx-auto mb-2" size={24} />
-                  <p className="font-semibold">Premium Content</p>
+              <div className="absolute top-1 right-1 bg-[#D97A37] text-white p-1 rounded ">
+                <div className="text-white text-center flex gap-2 align-middle">
+                  <p className="font-semibold">Premium</p>
                 </div>
               </div>
-              <div className="blur-sm absolute inset-0 bg-gradient-to-r from-transparent to-white opacity-70"></div>
             </>
           )}
         </div>
@@ -55,19 +61,12 @@ console.log(post,"post");
       <div className="mt-4">
         <div className="flex items-center justify-between gap-5">
           <div className="flex justify-between items-start mb-4">
-            <PostAuthor author={post.author} postCreatedAt={post.createdAt} />
+            <PostAuthor author={post.author} postCreatedAt={post.createdAt} isVerified={isAuthorVerified} />
           </div>
-          <Link
-            href={`/?category=${post?.category?._id}`}
-            scroll={false}
-            passHref
-          >
-            <button className="bg-[#7147ED] rounded  px-2 my-3 ">
-              <span className="font-semibold text-primary-text text-sm">
-                {post.category.name}
-              </span>
-            </button>
-          </Link>
+
+          <span className="font-semibold text-primary-text text-sm bg-[#7147ED] rounded  px-2 my-3">
+            {post.category.name}
+          </span>
         </div>
         <Link
           href={
@@ -101,14 +100,11 @@ console.log(post,"post");
                 postId={post._id}
                 totalComments={post.totalComments}
                 viewsCount={post.viewsCount}
-               
               />
             </div>
           )}
         </div>
-        <div>
-          
-        </div>
+        <div></div>
       </div>
     </div>
   );

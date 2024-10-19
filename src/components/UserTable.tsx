@@ -21,13 +21,28 @@ const getRoleBadgeColor = (role: string) => {
 
 const UserTable: React.FC = () => {
   const { users, error, isLoading } = useUsers();
+  console.log(users, "users");
   const { deleteUser } = useDeleteUser();
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; // Number of items to display per page
 
   if (isLoading) return <Spinner />;
   if (error) return <ErrorMessage message={error.message} />;
   if (!users.length) return <ErrorMessage message={"No Users Found"} />;
+
+  // Pagination logic
+  const indexOfLastUser = currentPage * itemsPerPage;
+  const indexOfFirstUser = indexOfLastUser - itemsPerPage;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber: number) => {
+    if (pageNumber < 1 || pageNumber > totalPages) return;
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className="shadow overflow-x-auto rounded-lg">
@@ -84,14 +99,14 @@ const UserTable: React.FC = () => {
         </thead>
         <tbody className="bg-primary-background">
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          {users.map((user: any, index: number) => (
+          {currentUsers.map((user: any, index: number) => (
             <tr
               key={user._id}
               className={`${
                 index % 2 === 0 ? "bg-secondary-background bg-opacity-20" : ""
               }`}
             >
-              <td className="pl-4">{index + 1}</td>
+              <td className="pl-4">{indexOfFirstUser + index + 1}</td>
               <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
               <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
               <td className="px-6 py-4 whitespace-nowrap">
@@ -131,6 +146,23 @@ const UserTable: React.FC = () => {
         setModalIsOpen={setModalIsOpen}
         user={selectedUser}
       />
+      <div className="flex justify-center gap-4 items-center py-4">
+        <Button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </Button>
+        <span className="text-sm">
+          Page {currentPage} of {totalPages}
+        </span>
+        <Button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </Button>
+      </div>
     </div>
   );
 };
