@@ -21,6 +21,7 @@ import { useDeleteComment } from "@/hooks/comments/useDeleteComment";
 import { useUpdateComment } from "@/hooks/comments/useUpdateComment";
 import SinglePost from "@/components/SinglePost";
 import { VscFilePdf } from "react-icons/vsc";
+import ErrorMessage from "@/components/ErrorMessage";
 
 interface FormData {
   text: string;
@@ -114,13 +115,13 @@ const PostDetails = () => {
 
   if (isLoading) return <Spinner />;
   // if (error) return <ErrorMessage message={error.message} />;
-  // if (!post) return <ErrorMessage message={"No Post Found"} />;
+  if (!post) return <ErrorMessage message={"No Post Found"} />;
 
   return (
-    <div className="container mx-auto mt-[140px] mb-14">
+    <div className="container mx-auto mt-[150px] mb-14">
       {user ? (
         <div
-          className="max-w-6xl mx-auto px-5 py-4 relative border border-white border-opacity-50 backdrop-blur-sm bg-[#040404]"
+          className="max-w-6xl mx-auto px-5 py-4 relative border border-white border-opacity-50 backdrop-blur-sm bg-[#040404] rounded"
           ref={targetRef}
         >
           <div className=" rounded-lg p-6 shadow-md space-y-2">
@@ -182,14 +183,14 @@ const PostDetails = () => {
 
             {/* Post Content */}
             <p
-              className="text-primary-text space-y-4 "
+              className="text-primary-text  prose max-w-none"
               dangerouslySetInnerHTML={{ __html: post?.content }}
             />
 
             {/* Comments Section */}
             <div className="space-y-4">
-              <div className="flex items-center  gap-3">
-                <h2 className="text-xl font-semibold">Comments</h2>
+              <div className="flex items-center  gap-3 pt-5">
+                <h2 className="text-xl font-semibold border-t w-full pt-3">Comments</h2>
               </div>
               {post?.comments && post?.comments?.length > 0 ? (
                 post?.comments.map((comment: Comment) => (

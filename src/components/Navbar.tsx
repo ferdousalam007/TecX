@@ -46,6 +46,14 @@ const Navbar = () => {
             <div className="hidden md:flex items-center gap-2 md:gap-3">
               {user && <PublishPost />}
               <Link
+                href="/"
+                className="block w-full  text-left px-3 py-1 bg-[#272B34] text[#a8b3cf] rounded-md border border-[#272B34]
+                    hover:bg-[#432256] hover:text-[#fff] hover:border-[#272B34] transition ease-in-out duration-300
+                   "
+              >
+                Home
+              </Link>
+              <Link
                 href="/about"
                 className="block w-full  text-left px-3 py-1 bg-[#272B34] text[#a8b3cf] rounded-md border border-[#272B34]
                     hover:bg-[#432256] hover:text-[#fff] hover:border-[#272B34] transition ease-in-out duration-300
@@ -119,6 +127,15 @@ const Navbar = () => {
               transition={{ duration: 0.3 }}
               className="md:hidden  px-5 py-4 space-y-4 absolute top-20 left-0 right-0  z-[9999] bg-[#1C1F26] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] backdrop-blur-[4px] rounded-[10px]  border-opacity-18"
             >
+              <Link
+                href="/"
+                className="block w-full  text-left px-3 py-1 bg-[#272B34] text[#a8b3cf] rounded-md border border-[#272B34]
+                    hover:bg-[#432256] hover:text-[#fff] hover:border-[#272B34] transition ease-in-out duration-300
+                   "
+                onClick={toggleMobileMenu}
+              >
+                Home
+              </Link>
               <Link
                 href="/about"
                 className="block w-full  text-left px-3 py-1 bg-[#272B34] text[#a8b3cf] rounded-md border border-[#272B34]

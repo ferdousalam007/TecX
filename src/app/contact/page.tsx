@@ -5,10 +5,13 @@ import { FaMapMarked } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 const page = () => {
- 
   return (
     <>
-      <section className="container px-5   gap-8 items-center  py-8 lg:py-10 mx-auto">
+      <section className="container px-5   gap-8 items-center py-[140px] mx-auto">
+         <div className="text-center mb-12">
+              <h1 className="text-4xl font-bold  mb-4">Contact Us</h1>
+            
+            </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 px-4  py-14 space-y-10 lg:space-y-0 custom-border-card">
           <div>
             <div className="">
@@ -70,7 +73,7 @@ const page = () => {
               <div>
                 <div>
                   <div className="flex items-center gap-5 space-x-5 justify-center border-b py-5">
-                    <MdEmail color="#ff8851"/>
+                    <MdEmail color="#ff8851" />
                     <div>
                       <p className="text-xl font-bold text-white">
                         Email Address

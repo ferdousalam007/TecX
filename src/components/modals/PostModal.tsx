@@ -33,6 +33,9 @@ const formats = [
   "indent",
   "link",
   "image",
+  "color",
+  "background",
+  "code-block",
 ];
 
 interface PostModalProps {
@@ -98,6 +101,8 @@ const modules = useMemo(() => {
       toolbar: [
         [{ header: [1, 2, 3, false] }],
         ["bold", "italic", "underline", "strike", "blockquote"],
+        ["code-block"],
+        [{ color: [] }, { background: [] }],
         [
           { list: "ordered" },
           { list: "bullet" },

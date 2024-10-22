@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState } from "react";
 import { FaPlus, FaRegPenToSquare, FaRegTrashCan } from "react-icons/fa6";
@@ -18,20 +19,61 @@ const getRoleBadgeColor = (role: string) => {
       return "bg-slate-800  text-white";
   }
 };
-
+const DeleteConfirmationModal = ({
+  isOpen,
+  setIsOpen,
+  onDelete,
+  userName,
+}: {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+  onDelete: () => void;
+  userName: string;
+}) => {
+  return isOpen ? (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="custom-border-card rounded-lg shadow-md p-6 w-96 text-center">
+        <h3 className="text-lg font-bold mb-4">Confirm Delete</h3>
+        <p className="text-sm  mb-4">
+          Are you sure you want to delete <strong>{userName}</strong>? This
+          action cannot be undone.
+        </p>
+        <div className="flex justify-center gap-4">
+          <Button
+            className=" text-red-500 border border-red-700"
+            onClick={() => {
+              onDelete();
+              setIsOpen(false);
+            }}
+          >
+            Yes, Delete
+          </Button>
+          <Button
+            className="bg-gray-300 text-gray-800"
+            onClick={() => setIsOpen(false)}
+          >
+            Cancel
+          </Button>
+        </div>
+      </div>
+    </div>
+  ) : null;
+};
 const UserTable: React.FC = () => {
   const { users, error, isLoading } = useUsers();
   const { deleteUser } = useDeleteUser();
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
+    const [userToDelete, setUserToDelete] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; 
-
+  const itemsPerPage = 10;
+console.log(users,"users table")
   if (isLoading) return <Spinner />;
   if (error) return <ErrorMessage message={error.message} />;
   if (!users.length) return <ErrorMessage message={"No Users Found"} />;
 
-  // Pagination logic
+
   const indexOfLastUser = currentPage * itemsPerPage;
   const indexOfFirstUser = indexOfLastUser - itemsPerPage;
   const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
@@ -45,6 +87,17 @@ const UserTable: React.FC = () => {
 
   return (
     <div className="shadow overflow-x-auto rounded-lg">
+      <div className="flex justify-center mb-5">
+        <Button
+          className="text-sm py-2 px-2 "
+          onClick={() => {
+            setSelectedUser(null);
+            setModalIsOpen(true);
+          }}
+        >
+          <FaPlus className="text-yellow-600 mr-1 text-xl" /> Add New User
+        </Button>
+      </div>
       <table className="min-w-full text-sm text-secondary-text">
         <thead className="bg-secondary-background text-xs uppercase font-medium text-primary-text">
           <tr>
@@ -84,15 +137,6 @@ const UserTable: React.FC = () => {
               className="px-6 py-3 text-left tracking-wider whitespace-nowrap flex items-center gap-3"
             >
               Actions
-              <Button
-                className="text-sm py-2 px-2"
-                onClick={() => {
-                  setSelectedUser(null);
-                  setModalIsOpen(true);
-                }}
-              >
-                <FaPlus />
-              </Button>
             </th>
           </tr>
         </thead>
@@ -110,7 +154,16 @@ const UserTable: React.FC = () => {
               <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <span
-                  className={`px-2 py-1 rounded-full text-xs font-medium uppercase ${getRoleBadgeColor(
+                  className={`px-2 py-1 rounded-full text-xs font-medium uppercase ${
+                    user.isBlocked
+                      ? "bg-red-500 text-white"
+                      : "bg-green-500 text-white"
+                  }`}
+                >
+                  {user.isBlocked ? "Blocked" : "Active"}
+                </span>
+                <span
+                  className={`ml-2 px-2 py-1 rounded-full text-xs font-medium uppercase ${getRoleBadgeColor(
                     user.role
                   )}`}
                 >
@@ -129,11 +182,19 @@ const UserTable: React.FC = () => {
                 >
                   <FaRegPenToSquare />
                 </Button>
-                <Button
+                {/* <Button
                   className="text-sm py-1.5 px-1.5"
                   onClick={() => deleteUser(user?._id)}
                 >
-                  {user?._id}
+                  <FaRegTrashCan />
+                </Button> */}
+                <Button
+                  className="text-sm py-1.5 px-1.5"
+                  onClick={() => {
+                    setUserToDelete(user);
+                    setDeleteModalIsOpen(true);
+                  }}
+                >
                   <FaRegTrashCan />
                 </Button>
               </td>
@@ -145,6 +206,12 @@ const UserTable: React.FC = () => {
         modalIsOpen={modalIsOpen}
         setModalIsOpen={setModalIsOpen}
         user={selectedUser}
+      />
+      <DeleteConfirmationModal
+        isOpen={deleteModalIsOpen}
+        setIsOpen={setDeleteModalIsOpen}
+        onDelete={() => deleteUser(userToDelete._id)}
+        userName={userToDelete?.name}
       />
       <div className="flex justify-center gap-4 items-center py-4">
         <Button

@@ -8,7 +8,7 @@ import Image from "next/image";
 const page = () => {
   return (
     <div>
-      <div className="container mx-auto px-5 my-10">
+      <div className="container mx-auto px-5 my-[140px]">
         <main className="container mx-auto px-4 py-5">
           <section className="custom-border-card p-6 rounded-lg shadow-md mb-4 md:mb-12">
             <div className="text-center mb-12">

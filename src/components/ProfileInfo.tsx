@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDropzone } from "react-dropzone";
-import { FaCheckCircle } from "react-icons/fa";
+import { MdEditNote } from "react-icons/md";
 import axios from "axios";
 // import Button from "../Button";
 import Image from "next/image";
@@ -109,7 +109,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
           contentLabel="Profile Info"
-          className="container z-50 mx-5"
+          className="container z-50 mx-5 "
           overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20"
         >
           <motion.div
@@ -117,7 +117,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.5 }}
             transition={{ duration: 0.3 }}
-            className="relative md:w-2/3 mx-auto max-h-[80vh] overflow-auto rounded-lg bg-primary-background p-8 shadow-lg"
+            className="relative md:w-2/3 mx-auto max-h-[80vh] overflow-auto rounded-lg bg-primary-background p-8 shadow-lg custom-border-card"
           >
             <button
               onClick={closeModal}
@@ -132,20 +132,21 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
             <div className="flex items-center space-x-4 mb-6">
               <div
                 {...getRootProps()}
-                className="relative border border-primary-blue p-1 rounded-full cursor-pointer"
+                className="relative border border-purple-500 p-1 rounded cursor-pointer"
               >
                 <input {...getInputProps()} />
                 <Image
                   src={profilePic as string}
                   alt="Profile"
-                  className="w-20 h-20 rounded-full object-cover"
+                  className="w-20 h-20 rounded object-cover"
                   width={80}
                   height={80}
                 />
-                <FaCheckCircle className="absolute bottom-1 right-1 text-primary-blue text-xl" />
+
+                <MdEditNote className="absolute bottom-[-20px] right-1 text-purple-700  border-slate-600 bg-slate-900 text-3xl" />
                 {isDragActive && (
-                  <div className="absolute inset-0 bg-blue-200 bg-opacity-50 flex items-center justify-center rounded-full">
-                    <p className="text-sm text-blue-700">Drop the image here</p>
+                  <div className="absolute inset-0  flex items-center justify-center rounded-full">
+                    <p className="text-sm text-purple-700">Upload image</p>
                   </div>
                 )}
               </div>
@@ -155,9 +156,6 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
                 </h3>
                 <p className="text-sm text-secondary-text italic">
                   {user?.email}
-                </p>
-                <p className="text-xs text-primary-blue mt-1">
-                  Click to change profile picture
                 </p>
               </div>
             </div>

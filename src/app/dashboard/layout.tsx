@@ -17,6 +17,8 @@ import { CiFileOn } from "react-icons/ci";
 import { useMe } from "@/hooks/auth/useMe";
 import { MdOutlinePayment } from "react-icons/md";
 import Image from "next/image";
+import ProfileModal from "@/components/ProfileInfo";
+import { MdEditNote } from "react-icons/md";
 
 interface NavItemProps {
   href: string;
@@ -29,9 +31,10 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Mobile sidebar
-  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true); // Desktop sidebar
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { isPending, logout } = useLogout();
   const pathname = usePathname();
   const { user } = useMe();
@@ -39,11 +42,11 @@ export default function DashboardLayout({
     const isMobileWidth = window.innerWidth < 1024;
     setIsMobile(isMobileWidth);
     if (isMobileWidth) {
-      setIsSidebarOpen(false); // Keep sidebar closed on mobile by default
-      setIsDesktopSidebarOpen(false); // Disable desktop sidebar on mobile
+      setIsSidebarOpen(false);
+      setIsDesktopSidebarOpen(false);
     } else {
-      setIsSidebarOpen(false); // Don't control mobile sidebar on desktop
-      setIsDesktopSidebarOpen(true); // Open sidebar on desktop by default
+      setIsSidebarOpen(false);
+      setIsDesktopSidebarOpen(true);
     }
   }, []);
 
@@ -54,22 +57,20 @@ export default function DashboardLayout({
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
-  // Close mobile sidebar when route changes
   useEffect(() => {
     if (isMobile) {
       setIsSidebarOpen(false);
     }
   }, [pathname, isMobile]);
 
-  // Toggle Sidebar functionality
   const toggleSidebar = () => {
     if (isMobile) {
-      setIsSidebarOpen((prev) => !prev); // Toggle mobile sidebar
+      setIsSidebarOpen((prev) => !prev);
     } else {
-      setIsDesktopSidebarOpen((prev) => !prev); // Toggle desktop sidebar
+      setIsDesktopSidebarOpen((prev) => !prev);
     }
   };
-
+  const openModal = () => setModalIsOpen(true);
   const sidebarVariants = {
     open: { x: 0, opacity: 1 },
     closed: { x: "-100%", opacity: 0 },
@@ -85,7 +86,7 @@ export default function DashboardLayout({
         href={href}
         className={`flex items-center p-3 rounded-lg transition-colors font-medium ${
           pathname === href
-            ? "bg-[#4338CA] text-white"
+            ? "bg-purple-500 text-white"
             : "text-gray-400 hover:bg-gray-700 hover:text-white"
         }`}
       >
@@ -109,7 +110,7 @@ export default function DashboardLayout({
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
             <div className="p-6 flex flex-col ">
-              <div className="mb-2  flex items-center flex-col gap-4 p-4  bg-green-900 bg-opacity-25  backdrop-blur-md rounded-[10px]  shadow-md">
+              <div className="mb-2 relative  flex items-center flex-col gap-4 p-4  bg-green-900 bg-opacity-25  backdrop-blur-md rounded-[10px]  shadow-md">
                 <Image
                   src={user?.profilePic}
                   alt="User Photo"
@@ -126,6 +127,15 @@ export default function DashboardLayout({
                           user?.name?.slice(1)}
                     </h2>
                   </h2>
+                </div>
+                <div className="text-xl flex justify-end items-center absolute right-1">
+                  {/* Button to open modal */}
+                  <button
+                    className=" border-green-100 border rounded-lg p-2  text-green-600"
+                    onClick={openModal}
+                  >
+                    <MdEditNote />
+                  </button>
                 </div>
               </div>
               <nav className="flex-grow">
@@ -254,6 +264,11 @@ export default function DashboardLayout({
           {children}
         </motion.div>
       </main>
+      <ProfileModal
+        user={user}
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+      />
     </div>
   );
 }

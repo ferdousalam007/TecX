@@ -2,7 +2,7 @@ import React from "react";
 
 const page = () => {
   return (
-    <div className="px-5">
+    <div className="px-5 my-[140px]">
       <section className="container max-w-6xl px-5 mx-auto py-8 lg:py-10 custom-border-card rounded-lg shadow-md my-4 md:my-12">
         <h1 className="text-3xl font-bold mb-6">Terms and Conditions</h1>
 
