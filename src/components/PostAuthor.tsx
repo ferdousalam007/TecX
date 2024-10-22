@@ -11,6 +11,7 @@ interface Author {
   name: string;
   profilePic: string;
   email: string;
+  isVerified?: boolean;
 
   followers: Array<{
     _id: string;
@@ -35,9 +36,9 @@ interface PostAuthorProps {
 const PostAuthor: React.FC<PostAuthorProps> = ({
   author,
   postCreatedAt,
-  isVerified,
+  // isVerified,
 }) => {
-  console.log(author, "author");
+ 
   const { user } = useMe();
   const { updateUser: updateCurrentUser } = useUpdateMe();
   const { updateUser } = useUpdateUser();
@@ -105,12 +106,13 @@ const PostAuthor: React.FC<PostAuthorProps> = ({
         <div>
           <div className="font-semibold flex items-center gap-1">
             {author?.name}
-            {isVerified === true && (
+            {author?.isVerified === true && (
               <span className="text-blue-500 text-xl">
                 <MdVerified />
               </span>
             )}
           </div>
+
           <div className="text-xs ">
             {author?.name && format(new Date(postCreatedAt), "PP")}
           </div>

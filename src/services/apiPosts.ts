@@ -53,6 +53,11 @@ export async function getMyPost() {
   console.log(response);
   return response.data.data;
 }
+export async function getBannerPost() {
+  const response = await handleApiRequest(api.get("/posts/bannerpost"));
+  console.log(response);
+  return response.data.data;
+}
 
 
 

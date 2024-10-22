@@ -24,7 +24,7 @@ const ForgotPassword: React.FC = () => {
   };
 
   return (
-    <section className="container px-5 grid grid-cols-1 gap-4 items-center custom-border-card py-8 lg:py-10 mx-auto my-16">
+    <section className="container px-5 grid grid-cols-1 gap-4 items-center custom-border-card py-8 lg:py-10 mx-auto mb-16 mt-[120px]">
       <div className="w-full max-w-[550px] p-6 lg:p-8  shadow-lg rounded-xl mx-auto">
         <h2 className="text-2xl lg:text-3xl font-semibold text-center mb-3 text-primary-text">
           Forgot Password

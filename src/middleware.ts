@@ -8,8 +8,8 @@ type Role = "user" | "admin";
 const AuthRoutes = ["/sign-in", "/sign-up", "/forgot-password"];
 
 const roleBasedRoutes: Record<Role, (string | RegExp)[]> = {
-  user: [/^\/dashboard\/user/, "/feeds"],
-  admin: [/^\/dashboard\/admin/, "/feeds"],
+  user: [/^\/dashboard\/user/ ],
+  admin: [/^\/dashboard\/admin/],
 };
 
 export async function middleware(request: NextRequest) {
@@ -47,7 +47,6 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/dashboard/:path*",
-    "/feeds",
     "/sign-in",
     "/sign-up",
     "/forgot-password",

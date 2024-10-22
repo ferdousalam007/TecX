@@ -21,12 +21,11 @@ const getRoleBadgeColor = (role: string) => {
 
 const UserTable: React.FC = () => {
   const { users, error, isLoading } = useUsers();
-  console.log(users, "users");
   const { deleteUser } = useDeleteUser();
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // Number of items to display per page
+  const itemsPerPage = 10; 
 
   if (isLoading) return <Spinner />;
   if (error) return <ErrorMessage message={error.message} />;
@@ -132,8 +131,9 @@ const UserTable: React.FC = () => {
                 </Button>
                 <Button
                   className="text-sm py-1.5 px-1.5"
-                  onClick={() => deleteUser(user._id)}
+                  onClick={() => deleteUser(user?._id)}
                 >
+                  {user?._id}
                   <FaRegTrashCan />
                 </Button>
               </td>

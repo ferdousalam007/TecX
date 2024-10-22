@@ -21,8 +21,17 @@ export function useLogin() {
       }
     },
     onError: (error) => {
-      toast.error(error.message);
+      
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if ('response' in error && (error.response as any).status === 500) {
+        toast.error("incorrect email or password");
+      } else {
+        toast.error(error.message)
+      }
     },
+    // onError: (error) => {
+    //   toast.error(error.message);
+    // },
   });
 
   return { login, isPending };

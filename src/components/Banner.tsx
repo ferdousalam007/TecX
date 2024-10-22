@@ -3,7 +3,7 @@
 "use client";
 
 import { useMe } from "@/hooks/auth/useMe";
-import { useAllPost } from "@/hooks/posts/useAllPost";
+import { useAllBannerPost } from "@/hooks/posts/useBannerPost";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,7 +18,8 @@ const Skeleton = () => {
 };
 
 const Banner = () => {
-  const { posts, isLoading } = useAllPost();
+  const { posts, isLoading } = useAllBannerPost();
+  console.log(posts,"populate posts");
   const { user } = useMe();
   const isPremium = posts?.[0]?.isPremium;
   const canAccessPremium =

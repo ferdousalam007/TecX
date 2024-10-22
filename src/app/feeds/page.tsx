@@ -2,7 +2,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import ErrorMessage from "@/components/ErrorMessage";
-import Greeting from "@/components/Greeting";
+// import Greeting from "@/components/Greeting";
 
 import PublishPost from "@/components/PublishPost";
 import SearchFilter from "@/components/SearchBox";
@@ -54,9 +54,9 @@ const Feeds = () => {
         </div>
 
         {/* Right Sidebar */}
-        <div className="space-y-6  sticky top-4 z-10 h-[300px] order-2 lg:order-3 lg:col-span-3 ">
-          <Greeting />
-        </div>
+        {/* <div className="space-y-6  sticky top-4 z-10 h-[300px] order-2 lg:order-3 lg:col-span-3 ">
+       
+        </div> */}
       </div>
     </div>
   );

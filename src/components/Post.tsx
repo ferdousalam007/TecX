@@ -4,18 +4,19 @@ import PostMedia from "./PostMedia";
 import PostAuthor from "./PostAuthor";
 import Link from "next/link";
 import { useMe } from "@/hooks/auth/useMe";
-import { useUsers } from "@/hooks/users/useUsers";
+// import { useUsers } from "@/hooks/users/useUsers";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Post = ({ post }: any) => {
   const { user } = useMe();
-  const { users, isLoading } = useUsers();
+  // const { users, isLoading } = useUsers();
   // Find the author in the users list
-  const authorMatch = users?.find(
-    (user: { _id: string }) => user._id === post.author._id
-  );
-  const isAuthorVerified = authorMatch?.isVerified;
-  console.log(isAuthorVerified, "isAuthorVerified check");
+  // const authorMatch = users?.find(
+  //   (user: { _id: string }) => user._id === post.author._id
+  // );
+  // const isAuthorVerified = authorMatch?.isVerified;
+  // console.log(isAuthorVerified, "isAuthorVerified check");
+  // isVerified = { isAuthorVerified };
   // console.log(users, "last check");
   // console.log(post, "post check");
   const isPremium = post.isPremium;
@@ -61,7 +62,7 @@ const Post = ({ post }: any) => {
       <div className="mt-4">
         <div className="flex items-center justify-between gap-5">
           <div className="flex justify-between items-start mb-4">
-            <PostAuthor author={post.author} postCreatedAt={post.createdAt} isVerified={isAuthorVerified} />
+            <PostAuthor author={post.author}  postCreatedAt={post.createdAt}  />
           </div>
 
           <span className="font-semibold text-primary-text text-sm bg-[#7147ED] rounded  px-2 my-3">

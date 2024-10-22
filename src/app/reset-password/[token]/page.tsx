@@ -25,7 +25,7 @@ const ResetPassword: React.FC = () => {
   };
 
   return (
-    <section className="container px-5 grid grid-cols-1 md:grid-cols-2 gap-8 items-center custom-border-card py-8 lg:py-10 mx-auto">
+    <section className="container px-5 grid grid-cols-1  gap-8 items-center custom-border-card py-8 lg:py-10 mx-auto">
       <div className="w-full p-6 lg:p-8  shadow-lg rounded-xl ">
         <h2 className="text-2xl lg:text-3xl font-semibold text-center mb-3 text-primary-text">
           Reset Password
